@@ -8,6 +8,19 @@ const pool = mysql.createPool({
     password: process.env.password,
     database: process.env.database
 }).promise();
+async function getEmp() {
+    const [rows] = await pool.query('SELECT * FROM `employe` ')
+    return rows
 
-const result = await pool.query('SELECT * FROM `employe` ')
-console.log(result[0])
+}
+async function getEmpByCd(code) {
+    const [rows] = await pool.query('SELECT * FROM `employe` where `code_employe` = ?', [code])
+    return rows
+
+}
+
+async function createEm(nom, sal) {
+    const [rows] = await pool.query('INSERT INTO `employe`(`nom_employe`,`salaire`) VALUES (?,?)', [nom, sal])
+    return rows
+
+}
