@@ -8,27 +8,26 @@ const pool = mysql.createPool({
     password: process.env.password,
     database: process.env.database
 }).promise();
-export async function getEmp() {
-    const [rows] = await pool.query('SELECT * FROM `employe` ')
+export async function getTodo() {
+    const [rows] = await pool.query('SELECT * FROM `todo` ')
     return rows
 
 }
-export async function getEmpByCd(code) {
-    const [rows] = await pool.query('SELECT * FROM `employe` where `code_employe` = ?', [code])
+export async function getTodoById(id) {
+    const [rows] = await pool.query('SELECT * FROM `todo` where `id` = ?', [id])
     return rows
 
 }
-
-export async function createEm(nom, sal) {
-    const [rows] = await pool.query('INSERT INTO `employe`(`nom_employe`,`salaire`) VALUES (?,?)', [nom, sal])
+export async function createTodo(title, body) {
+    const [rows] = await pool.query('INSERT INTO `todo`(`title`,`body`) VALUES (?,?)', [title, body])
     return rows
 
 }
-async function updateEm(code, nom, sal) {
-    const [rows] = await pool.query('UPDATE `employe` SET `nom_employe`= ?,`salaire`= ? WHERE `code_employe`=?', [nom, sal, code])
+export async function updateTodo(id, title, body) {
+    const [rows] = await pool.query('UPDATE `todo` SET `title`= ?,`body`= ? WHERE `id`=?', [title, body, id])
     return rows
 }
-async function updateEm(code, nom, sal) {
-    const [rows] = await pool.query('UPDATE `employe` SET `nom_employe`= ?,`salaire`= ? WHERE `code_employe`=?', [nom, sal, code])
+export async function deleteTodo(id) {
+    const [rows] = await pool.query('DELETE FROM `todo` WHERE `todo`.`id` = ? ', [id])
     return rows
 }
