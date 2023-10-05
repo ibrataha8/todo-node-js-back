@@ -13,6 +13,10 @@ export async function getTodo() {
     return rows
 
 }
+export async function getTodoCompt() {
+    const [rows] = await pool.query('SELECT * FROM `todo` where `todo`.`completed`=1 ')
+    return rows
+}
 export async function getTodoById(id) {
     const [rows] = await pool.query('SELECT * FROM `todo` where `id` = ?', [id])
     return rows

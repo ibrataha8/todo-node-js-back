@@ -5,7 +5,8 @@ import {
     getTodoById,
     createTodo,
     updateTodo,
-    deleteTodo
+    deleteTodo,
+    getTodoCompt
 } from "./database.js"
 import cors from "cors";
 
@@ -25,6 +26,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/getTodo', async (req, res) => {
     const allTodo = await getTodo()
     res.send(allTodo)
+})
+app.get('/getTodoCompleted', async (req, res) => {
+    const allTodoCmp = await getTodoCompt()
+    res.send(allTodoCmp)
 })
 app.get('/getTodoById/:id/:name', async (req, res) => {
     const id = req.params
