@@ -7,7 +7,7 @@ import {
     updateTodo,
     deleteTodo,
     updateCompletedTodo,
-    getTodoCompt
+    getTodoCompt, getTodoNotCompt
 } from "./database.js"
 import cors from "cors";
 
@@ -32,6 +32,10 @@ app.get('/getTodo', async (req, res) => {
 app.get('/getTodoCompleted', async (req, res) => {
     const allTodoCmp = await getTodoCompt()
     res.send(allTodoCmp)
+})
+app.get('/getTodoNotCompleted', async (req, res) => {
+    const allTodoNotCmp = await getTodoNotCompt()
+    res.send(allTodoNotCmp)
 })
 
 
