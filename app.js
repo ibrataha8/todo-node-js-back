@@ -7,8 +7,15 @@ import {
     updateTodo,
     deleteTodo
 } from "./database.js"
+import cors from "cors";
 
 const app = express()
+app.use(
+    cors({
+        origin: '*',
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    })
+)
 // recuperer data in request body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,8 +33,7 @@ app.get('/getTodoById/:id/:name', async (req, res) => {
 })
 app.post('/creteTodo/', async (req, res) => {
     const title = req.body.title
-    const body = req.body.body
-    const createTodoNew = await createTodo(title, body)
+    const createTodoNew = await createTodo(title)
     res.send(createTodoNew)
 })
 app.delete('/deleteTodo/:id', async (req, res) => {
@@ -38,9 +44,9 @@ app.delete('/deleteTodo/:id', async (req, res) => {
 
 app.put('/updateTodo/:id', async (req, res) => {
     const id = req.params.id
-    const newTitle = req.body.title
-    const newBody = req.body.body
-    const newTodo = await updateTodo(id, newTitle, newBody)
-    res.send(newTodo)
+    const newTitle = req.body.newTitle
+    const newTodoUpdated = await updateTodo(id, newTitle)
+    const allTodo = await getTodo()
+    res.send(allTodo)
 })
 app.listen(3000)

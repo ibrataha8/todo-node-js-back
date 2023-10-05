@@ -18,13 +18,13 @@ export async function getTodoById(id) {
     return rows
 
 }
-export async function createTodo(title, body) {
-    const [rows] = await pool.query('INSERT INTO `todo`(`title`,`body`) VALUES (?,?)', [title, body])
+export async function createTodo(title) {
+    const [rows] = await pool.query('INSERT INTO `todo`(`title`) VALUES (?)', [title])
     return rows
 
 }
-export async function updateTodo(id, title, body) {
-    const [rows] = await pool.query('UPDATE `todo` SET `title`= ?,`body`= ? WHERE `id`=?', [title, body, id])
+export async function updateTodo(id, title) {
+    const [rows] = await pool.query('UPDATE `todo` SET `title`=?  WHERE `id`=?', [title, id])
     return rows
 }
 export async function deleteTodo(id) {
