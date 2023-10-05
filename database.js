@@ -13,8 +13,14 @@ export async function getTodo() {
     return rows
 
 }
+export async function updateCompletedTodo(id) {
+    const [rows] = await pool.query("UPDATE `todo` SET `completed` = !`completed` WHERE `todo`.`id` = ? ", [id])
+    return rows
+
+}
+
 export async function getTodoCompt() {
-    const [rows] = await pool.query('SELECT * FROM `todo` where `todo`.`completed`=1 ')
+    const [rows] = await pool.query('SELECT * FROM `todo` where `todo`.`completed`= 1 ')
     return rows
 }
 export async function getTodoById(id) {

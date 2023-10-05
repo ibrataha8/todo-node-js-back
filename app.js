@@ -6,6 +6,7 @@ import {
     createTodo,
     updateTodo,
     deleteTodo,
+    updateCompletedTodo,
     getTodoCompt
 } from "./database.js"
 import cors from "cors";
@@ -27,10 +28,13 @@ app.get('/getTodo', async (req, res) => {
     const allTodo = await getTodo()
     res.send(allTodo)
 })
+
 app.get('/getTodoCompleted', async (req, res) => {
     const allTodoCmp = await getTodoCompt()
     res.send(allTodoCmp)
 })
+
+
 app.get('/getTodoById/:id/:name', async (req, res) => {
     const id = req.params
     const todoById = await getTodoById(id)
@@ -45,6 +49,11 @@ app.delete('/deleteTodo/:id', async (req, res) => {
     const id = req.params.id
     const deleteTodoNew = await deleteTodo(id)
     res.send(deleteTodoNew)
+})
+app.post('/updateTodoCmptd/:id', async (req, res) => {
+    const id = req.params.id
+    const cpmtTodo = await updateCompletedTodo(id)
+    res.send(cpmtTodo)
 })
 
 app.put('/updateTodo/:id', async (req, res) => {
