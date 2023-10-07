@@ -28,7 +28,8 @@ export const updateTodoById = async (req, res) => {
     const id = req.params.id
     const newTitle = req.body.newTitle
     const newUpdateTodo = await updateTodo(id, newTitle)
-    res.send(newUpdateTodo)
+    const allTodo = await getTodo()
+    res.send(allTodo)
 }
 export const deleteTodoById = async (req, res) => {
     const id = req.params.id
