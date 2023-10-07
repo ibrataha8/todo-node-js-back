@@ -14,32 +14,38 @@ export const getTAllTodo = async (req, res) => {
     const allTodo = await getTodo()
     res.send(allTodo)
 }
-export const getTodoById = async (req, res) => {
-    const allTodo = await getTodo()
-    res.send(allTodo)
+export const getTodoByIdSpe = async (req, res) => {
+    const id = req.params
+    const todoById = await getTodoById(id)
+    res.send(todoById)
 }
-export const createTodo = async (req, res) => {
-    const allTodo = await getTodo()
-    res.send(allTodo)
+export const createNewTodo = async (req, res) => {
+    const title = req.body.title
+    const createTodoNew = await createTodo(title)
+    res.send(createTodoNew)
 }
-export const updateTodo = async (req, res) => {
-    const allTodo = await getTodo()
-    res.send(allTodo)
+export const updateTodoById = async (req, res) => {
+    const id = req.params.id
+    const newTitle = req.body.newTitle
+    const newUpdateTodo = await updateTodo(id, newTitle)
+    res.send(newUpdateTodo)
 }
-export const deleteTodo = async (req, res) => {
-    const allTodo = await getTodo()
-    res.send(allTodo)
+export const deleteTodoById = async (req, res) => {
+    const id = req.params.id
+    const deleteTodoNew = await deleteTodo(id)
+    res.send(deleteTodoNew)
 }
-export const updateCompletedTodo = async (req, res) => {
-    const allTodo = await getTodo()
-    res.send(allTodo)
+export const updateCompletedTodoById = async (req, res) => {
+    const id = req.params.id
+    const cpmtTodo = await updateCompletedTodo(id)
+    res.send(cpmtTodo)
 }
-export const getTodoCompt = async (req, res) => {
-    const allTodo = await getTodo()
-    res.send(allTodo)
+export const getTodoComplt = async (req, res) => {
+    const allTodoCmp = await getTodoCompt()
+    res.send(allTodoCmp)
 }
 
-export const getTodoNotCompt = async (req, res) => {
-    const allTodo = await getTodo()
-    res.send(allTodo)
+export const getTodoNotComplt = async (req, res) => {
+    const allTodoNotCmp = await getTodoNotCompt()
+    res.send(allTodoNotCmp)
 }

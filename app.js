@@ -1,15 +1,15 @@
 import express from "express"
-import {
-    getTodo,
-    getTodoById,
-    createTodo,
-    updateTodo,
-    deleteTodo,
-    updateCompletedTodo,
-    getTodoCompt, getTodoNotCompt
-} from "./database.js"
 import cors from "cors";
-import { getTAllTodo } from "./Controller/Todo.js"
+import {
+    getTAllTodo,
+    getTodoByIdSpe,
+    createNewTodo,
+    updateTodoById,
+    deleteTodoById,
+    updateCompletedTodoById,
+    getTodoComplt,
+    getTodoNotComplt
+} from "./Controller/Todo.js"
 
 const app = express()
 app.use(
@@ -22,45 +22,13 @@ app.use(
 app.use(express.json());
 
 app.get('/getTodo', getTAllTodo)
-
-app.get('/getTodoCompleted', async (req, res) => {
-    const allTodoCmp = await getTodoCompt()
-    res.send(allTodoCmp)
-})
-app.get('/getTodoNotCompleted', async (req, res) => {
-    const allTodoNotCmp = await getTodoNotCompt()
-    res.send(allTodoNotCmp)
-})
-
-
-app.get('/getTodoById/:id/:name', async (req, res) => {
-    const id = req.params
-    const todoById = await getTodoById(id)
-    res.send(todoById)
-})
-app.post('/creteTodo/', async (req, res) => {
-    const title = req.body.title
-    const createTodoNew = await createTodo(title)
-    res.send(createTodoNew)
-})
-app.delete('/deleteTodo/:id', async (req, res) => {
-    const id = req.params.id
-    const deleteTodoNew = await deleteTodo(id)
-    res.send(deleteTodoNew)
-})
-app.post('/updateTodoCmptd/:id', async (req, res) => {
-    const id = req.params.id
-    const cpmtTodo = await updateCompletedTodo(id)
-    res.send(cpmtTodo)
-})
-
-app.put('/updateTodo/:id', async (req, res) => {
-    const id = req.params.id
-    const newTitle = req.body.newTitle
-    const newTodoUpdated = await updateTodo(id, newTitle)
-    const allTodo = await getTodo()
-    res.send(allTodo)
-})
+app.get('/getTodoCompleted', getTodoComplt)
+app.get('/getTodoNotCompleted', getTodoNotComplt)
+app.get('/getTodoById/:id/:name', getTodoByIdSpe)
+app.post('/creteTodo/', createNewTodo)
+app.delete('/deleteTodo/:id', deleteTodoById)
+app.post('/updateTodoCmptd/:id', updateCompletedTodoById)
+app.put('/updateTodo/:id', updateTodoById)
 app.listen(3000, () => {
     console.log('running server on port 3000')
 })
