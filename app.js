@@ -1,5 +1,4 @@
 import express from "express"
-import bodyParser from "body-parser"
 import {
     getTodo,
     getTodoById,
@@ -10,6 +9,7 @@ import {
     getTodoCompt, getTodoNotCompt
 } from "./database.js"
 import cors from "cors";
+import { getTAllTodo } from "./Controller/Todo.js"
 
 const app = express()
 app.use(
@@ -19,15 +19,9 @@ app.use(
     })
 )
 // recuperer data in request body
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
-
-
-app.get('/getTodo', async (req, res) => {
-    const allTodo = await getTodo()
-    res.send(allTodo)
-})
+app.get('/getTodo', getTAllTodo)
 
 app.get('/getTodoCompleted', async (req, res) => {
     const allTodoCmp = await getTodoCompt()
@@ -67,4 +61,6 @@ app.put('/updateTodo/:id', async (req, res) => {
     const allTodo = await getTodo()
     res.send(allTodo)
 })
-app.listen(3000)
+app.listen(3000, () => {
+    console.log('running server on port 3000')
+})

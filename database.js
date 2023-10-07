@@ -1,7 +1,5 @@
-
 import mysql from 'mysql2';
 import 'dotenv/config'
-
 const pool = mysql.createPool({
     host: process.env.localhost,
     user: process.env.user,
@@ -11,7 +9,6 @@ const pool = mysql.createPool({
 export async function getTodo() {
     const [rows] = await pool.query('SELECT * FROM `todo` ')
     return rows
-
 }
 export async function updateCompletedTodo(id) {
     const [rows] = await pool.query("UPDATE `todo` SET `completed` = !`completed` WHERE `todo`.`id` = ? ", [id])
